@@ -3,7 +3,7 @@ import { AppLoading } from 'expo';
 import api from '../../services/api.service';
 import * as MailComposer from 'expo-mail-composer';
 import React, { useState, useEffect } from 'react';
-import environment from '../../../environments/environments';
+import environment from '../../environments/environments';
 import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import DetailParams from '../../models/Detail/detail-params.interface';

@@ -5,7 +5,7 @@ import { RectButton } from 'react-native-gesture-handler';
 import { View, ImageBackground, Image, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import environment from '../../../environments/environments';
+import environment from '../../environments/environments';
 import CityResponse from '../../models/Point/city.interface';
 import UFResponse from '../../models/Point/uf.interface';
 import RNPickerSelect from 'react-native-picker-select';

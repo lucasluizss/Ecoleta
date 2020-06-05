@@ -11,7 +11,7 @@ import Notification from '../../components/Notification';
 import Item from '../../models/item.interface';
 import UFResponse from '../../models/uf.interface';
 import CityResponse from '../../models/city.interface';
-import environment from '../../../environments/environments';
+import environment from '../../environments/environments';
 
 const CreatePoint = () => {
 	const [items, setItems] = useState<Item[]>([]);
