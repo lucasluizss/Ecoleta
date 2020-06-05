@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './styles';
 import { Feather as Icon } from '@expo/vector-icons';
 import { RectButton } from 'react-native-gesture-handler';
 import { View, ImageBackground, Image, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const Home = () => {
+	const [ufs, setUfs] = useState();
+	const [selectedUf, setSelectedUf] = useState();
+	const [cities, setCities] = useState();
+	const [selectedCity, setSelectedCity] = useState();
 	const navigation = useNavigation();
 
 	function handleNavigationToPoints() {
 		navigation.navigate('Points');
 	}
+
+	useEffect(() => {
+
+	}, []);
 
 	return (
 		<ImageBackground source={require('../../assets/home-background.png')} style={styles.container} imageStyle={styles.imageBackground}>
