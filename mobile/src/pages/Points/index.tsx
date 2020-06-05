@@ -1,26 +1,15 @@
-import React, { useState, useEffect, EventHandler } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import styles from './styles';
 import { Feather as Icon } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import MapView, { Marker } from 'react-native-maps';
 import { SvgUri } from 'react-native-svg';
 import api from '../../services/api.service'
 import * as Location from 'expo-location';
-
-interface Item {
-	id: number;
-	title: string;
-	image_url: string;
-}
-
-interface Point {
-	id: number;
-	name: string;
-	image: string;
-	latitude: number;
-	longitude: number;
-}
+import Item from '../../models/Item/item.interface';
+import Point from '../../models/Point/point.interface';
+import PointParams from '../../models/Point/point-params.interface';
 
 const Points = () => {
 	const [items, setItems] = useState<Item[]>([]);
@@ -28,6 +17,23 @@ const Points = () => {
 	const [points, setPoints] = useState<Point[]>([]);
 	const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]);
 	const navigation = useNavigation();
+
+	const route = useRoute();
+
+	const routeParams = route.params as PointParams;
+
+	useEffect(() => {
+		api.get('points', {
+			params: {
+				city: routeParams.city,
+				uf: routeParams.uf,
+				items: selectedItems
+			}
+		}).then(response => {
+			const { data } = response.data;
+			setPoints(data);
+		});
+	}, [selectedItems]);
 
 	function handleNavigateBack() {
 		navigation.goBack();
@@ -70,19 +76,6 @@ const Points = () => {
 		});
 	}, []);
 
-	useEffect(() => {
-		api.get('points', {
-			params: {
-				city: 'São Paulo',
-				uf: 'SP',
-				items: [1]
-			}
-		}).then(response => {
-			const { data } = response.data;
-			setPoints(data);
-		});
-	}, []);
-
 	return (
 		<>
 			<View style={styles.container}>
@@ -108,6 +101,7 @@ const Points = () => {
 								{
 									points.map(point => (
 										<Marker
+											key={String(point.id)}
 											onPress={() => handleNavigateToDetail(point.id)}
 											style={styles.mapMarker}
 											coordinate={{

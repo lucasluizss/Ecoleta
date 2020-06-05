@@ -7,38 +7,16 @@ import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
 import api from '../../services/api.service';
 import { AppLoading } from 'expo';
 import * as MailComposer from 'expo-mail-composer';
-
-interface Params {
-	point_id: number;
-}
-
-interface Point {
-	id: number;
-	image: string;
-	name: string;
-	email: string;
-	whatsapp: string;
-	latitude: number;
-	longitude: number;
-	city: string;
-	uf: string;
-}
-
-interface Item {
-	title: string;
-}
-
-interface Data {
-	point: Point;
-	items: Item[]
-}
+import environment from '../../../environments/environments';
+import DetailParams from '../../models/Detail/detail-params.interface';
+import DetailResponse from '../../models/Detail/detail-response.interface';
 
 const Detail = () => {
-	const [data, setData] = useState<Data>({} as Data);
+	const [data, setData] = useState<DetailResponse>({} as DetailResponse);
 	const navigation = useNavigation();
 	const route = useRoute();
 
-	const routeParams = route.params as Params;
+	const routeParams = route.params as DetailParams;
 
 	useEffect(() => {
 		api.get(`points/${routeParams.point_id}`).then(response => {
@@ -53,14 +31,13 @@ const Detail = () => {
 
 	function handleComposeEmail() {
 		MailComposer.composeAsync({
-			subject: 'Interesse na coleta de resíduos',
-			recipients: [data.point.email],
-
+			subject: `Interesse na coleta de resíduos em ${data.point.name}`,
+			recipients: [data.point.email]
 		});
 	}
 
 	function handleWhatsapp() {
-		Linking.openURL(`whatsapp://send?phone=${data.point.whatsapp}&text=Tenho interesse na coleta de resíduos`);
+		Linking.openURL(environment.whatsappUrl(data.point.whatsapp));
 	}
 
 	if (!data.point) {

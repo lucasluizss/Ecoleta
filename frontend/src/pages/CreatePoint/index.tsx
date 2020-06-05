@@ -4,24 +4,14 @@ import { FiArrowLeft } from 'react-icons/fi';
 import './styles.css';
 import logo from '../../assets/logo.svg';
 import { Map, TileLayer, Marker } from 'react-leaflet';
-import api from '../../services/api';
+import api from '../../services/api.service';
 import axios from 'axios';
 import { LeafletMouseEvent } from 'leaflet';
 import Notification from '../../components/Notification';
-
-interface Item {
-	id: number;
-	title: string;
-	image_url: string;
-}
-
-interface IBGEUFResponse {
-	sigla: string;
-}
-
-interface IBGECityResponse {
-	nome: string;
-}
+import Item from '../../models/item.interface';
+import UFResponse from '../../models/uf.interface';
+import CityResponse from '../../models/city.interface';
+import environment from '../../../environments/environments';
 
 const CreatePoint = () => {
 	const [items, setItems] = useState<Item[]>([]);
@@ -113,7 +103,7 @@ const CreatePoint = () => {
 	}, []);
 
 	useEffect(() => {
-		axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
+		axios.get<UFResponse[]>(environment.getUfs).then(response => {
 			const ufInitials = response.data.map(uf => uf.sigla);
 			setUfs(ufInitials);
 		});
@@ -124,7 +114,7 @@ const CreatePoint = () => {
 			return;
 		}
 
-		axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`).then(response => {
+		axios.get<CityResponse[]>(environment.getCities(selectedUf)).then(response => {
 			const cities = response.data.map(city => city.nome);
 			setCities(cities);
 		});
