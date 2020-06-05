@@ -21,10 +21,7 @@ const Notification: React.FC<NotificationProps> = (props) => {
 			setCounter(counter => {
 				if (counter - 1 <= 0) {
 					clearInterval(interval);
-
-					if (!props.error) {
-						history.push(props.redirectTo || '/');
-					}
+					history.push(props.redirectTo || '/');
 				}
 
 				return counter - 1;
