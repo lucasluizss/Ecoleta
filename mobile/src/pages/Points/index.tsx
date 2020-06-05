@@ -35,22 +35,6 @@ const Points = () => {
 		});
 	}, [selectedItems]);
 
-	function handleNavigateBack() {
-		navigation.goBack();
-	}
-
-	function handleNavigateToDetail(id: number) {
-		navigation.navigate('Detail', { point_id: id });
-	}
-
-	function handleSelectedItems(id: number) {
-		if (selectedItems.includes(id)) {
-			setSelectedItems(selectedItems.filter(i => i !== id));
-		} else {
-			setSelectedItems([...selectedItems, id]);
-		}
-	}
-
 	useEffect(() => {
 		async function loadPosition() {
 			const { status } = await Location.requestPermissionsAsync();
@@ -75,6 +59,22 @@ const Points = () => {
 			setItems(data);
 		});
 	}, []);
+
+	function handleNavigateBack() {
+		navigation.goBack();
+	}
+
+	function handleNavigateToDetail(id: number) {
+		navigation.navigate('Detail', { point_id: id });
+	}
+
+	function handleSelectedItems(id: number) {
+		if (selectedItems.includes(id)) {
+			setSelectedItems(selectedItems.filter(i => i !== id));
+		} else {
+			setSelectedItems([...selectedItems, id]);
+		}
+	}
 
 	return (
 		<>

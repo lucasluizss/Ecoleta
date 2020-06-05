@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, SafeAreaView, Linking } from 'react-native';
 import styles from './styles';
-import { TouchableOpacity, RectButton } from 'react-native-gesture-handler';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
-import api from '../../services/api.service';
 import { AppLoading } from 'expo';
+import api from '../../services/api.service';
 import * as MailComposer from 'expo-mail-composer';
+import React, { useState, useEffect } from 'react';
 import environment from '../../../environments/environments';
+import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import DetailParams from '../../models/Detail/detail-params.interface';
+import { View, Text, Image, SafeAreaView, Linking } from 'react-native';
 import DetailResponse from '../../models/Detail/detail-response.interface';
+import { TouchableOpacity, RectButton } from 'react-native-gesture-handler';
 
 const Detail = () => {
 	const [data, setData] = useState<DetailResponse>({} as DetailResponse);
