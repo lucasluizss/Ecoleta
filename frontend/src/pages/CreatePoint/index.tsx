@@ -25,8 +25,8 @@ const CreatePoint = () => {
 
 	const [notificationData, setNotificationData] = useState({
 		show: false,
-		message: '',
-		redirectTo: '/'
+		error: false,
+		message: ''
 	});
 
 	const [formData, setFormData] = useState({
@@ -48,13 +48,22 @@ const CreatePoint = () => {
 			items: selectedItems
 		};
 
-		await api.post('points', data);
+		try {
+			await api.post('points', data);
 
-		setNotificationData({
-			...notificationData,
-			'message': 'Cadastro concluído!',
-			'show': true
-		});
+			setNotificationData({
+				...notificationData,
+				'message': 'Cadastro concluído!',
+				'show': true
+			});
+		} catch(ex) {
+			setNotificationData({
+				...notificationData,
+				'message': 'Falha ao enviar dados!',
+				'show': true,
+				'error': true
+			});
+		}
 	}
 
 	function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -123,13 +132,12 @@ const CreatePoint = () => {
 	return (
 		<div id="page-create-point">
 			{
-				notificationData.show ?
+				notificationData.show &&
 					<Notification
 						message={notificationData.message}
 						show={notificationData.show}
-						redirectTo={notificationData.redirectTo}
+						error={notificationData.error}
 					/>
-					: <div></div>
 			}
 			<header>
 				<img src={logo} alt="Ecoleta" />

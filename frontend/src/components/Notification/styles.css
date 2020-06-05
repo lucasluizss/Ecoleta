@@ -1,9 +1,6 @@
-.fundo {
+.notification {
 	background: #0E0A14;
 	opacity: 0.95;
-}
-
-.items {
 	position: fixed !important;
 	width: 1440px;
 	height: 820px;
