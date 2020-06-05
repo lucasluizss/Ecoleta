@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import knex from '../database/connection';
 import Result from '../factories/results.factory';
+import PointFactory from '../factories/point.factory';
 
 class PointsController {
 
@@ -22,7 +23,9 @@ class PointsController {
 				.distinct()
 				.select('points.*');
 
-			return response.json(Result.Success(points));
+			const serializedPoints = points.map(PointFactory.create);
+
+			return response.json(Result.Success(serializedPoints));
 		} catch(ex) {
 			return response.json(Result.Fail(ex));
 		}
@@ -38,12 +41,14 @@ class PointsController {
 				return response.status(400).json(Result.Fail({}, 'Point not found!'));
 			}
 
+			const serializedPoint = PointFactory.create(point);
+
 			const items = await knex('items')
 				.join('point_items', 'items.id', '=', 'point_items.id')
 				.where('point_items.point_id', id)
 				.select('items.title');
 
-			return response.json(Result.Success({ point, items }));
+			return response.json(Result.Success({ point: serializedPoint, items }));
 		} catch(ex) {
 			return response.json(Result.Fail(ex));
 		}
@@ -65,7 +70,7 @@ class PointsController {
 			const trx = await knex.transaction();
 
 			const point = {
-				image: 'https://bit.ly/3cwN3XQ',
+				image: request.file.filename,
 				name,
 				email,
 				whatsapp,
@@ -79,18 +84,24 @@ class PointsController {
 
 			const point_id = insertedIds[0];
 
-			const pointItems = items.map((item_id: number) => {
-				return {
-					item_id,
-					point_id
-				}
+			const pointItems = String(items)
+				.trim()
+				.split(',')
+				.map(Number)
+				.map((item_id: number) => {
+					return {
+						item_id,
+						point_id
+					}
 			});
 
 			await trx('point_items').insert(pointItems);
 
 			await trx.commit();
 
-			return response.json(Result.Success({ id: point_id, ...point }));
+			const serializedPoint = PointFactory.create(point);
+
+			return response.json(Result.Success({ id: point_id, point: serializedPoint }));
 		} catch (ex) {
 			return response.json(Result.Fail(ex));
 		}
