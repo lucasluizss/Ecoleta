@@ -12,26 +12,43 @@ interface NotificationProps {
 }
 
 const Notification: React.FC<NotificationProps> = (props) => {
-	const [counter, setCounter] = useState(props.timeToRedirect || 5);
-
+	const [notificationClass, setNotificationClass] = useState('hide');
+	const [counter, setCounter] = useState(5);
 	const history = useHistory();
 
-	useEffect(() => {
+	function handleRedirect() {
 		const interval = setInterval(() => {
 			setCounter(counter => {
 				if (counter - 1 <= 0) {
 					clearInterval(interval);
-					history.push(props.redirectTo || '/');
+
+					if (props.error) {
+						setNotificationClass('hide');
+					} else {
+						history.push(props.redirectTo || '/');
+					}
 				}
 
 				return counter - 1;
 			});
 		}, 1000);
+	}
 
-	}, []);
+	useEffect(() => {
+		if (props.timeToRedirect) {
+			setCounter(props.timeToRedirect);
+		}
+	}, [props.timeToRedirect]);
+
+	useEffect(() => {
+		if (props.show) {
+			setNotificationClass('notification');
+			handleRedirect();
+		}
+	}, [props.show]);
 
 	return (
-		<div className={props.show ? 'notification' : ''}>
+		<div className={notificationClass}>
 			{
 				props.show ?
 					<div className="text">
@@ -42,7 +59,7 @@ const Notification: React.FC<NotificationProps> = (props) => {
 						}
 						<br />
 						<h1> {props.message} </h1>
-						{ !props.error && <h3> Você será redirecionado em {counter}... </h3>}
+						{!props.error && <h3> Você será redirecionado em {counter}... </h3>}
 					</div> :
 					<div></div>
 			}

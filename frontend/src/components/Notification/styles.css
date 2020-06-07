@@ -11,6 +11,10 @@
   align-items: center;
 }
 
+.hide {
+	display: none;
+}
+
 .text {
 	text-align: center;
 	vertical-align: middle;

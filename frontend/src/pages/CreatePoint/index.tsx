@@ -135,18 +135,15 @@ const CreatePoint = () => {
 			const cities = response.data.map(city => city.nome);
 			setCities(cities);
 		});
-	}, [selectedUf])
+	}, [selectedUf]);
 
 	return (
 		<div id="page-create-point">
-			{
-				notificationData.show &&
-				<Notification
-					message={notificationData.message}
-					show={notificationData.show}
-					error={notificationData.error}
-				/>
-			}
+			<Notification
+				message={notificationData.message}
+				show={notificationData.show}
+				error={notificationData.error}
+			/>
 			<header>
 				<img src={logo} alt="Ecoleta" />
 				<Link to="/">
