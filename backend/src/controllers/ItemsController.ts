@@ -13,7 +13,7 @@ interface Item {
 }
 
 class ItemsController {
-	async index(request: Request, response: Response) {
+	async index(_: Request, response: Response) {
 		console.log('buscando todos os items')
 		const items = await knex(items_tb).select('*');
 
