@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './styles';
 import { Feather as Icon } from '@expo/vector-icons';
 import { RectButton } from 'react-native-gesture-handler';
-import { View, ImageBackground, Image, Text } from 'react-native';
+import { View, ImageBackground, Image, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import environment from '../../environments/environments';
@@ -19,7 +19,11 @@ const Home = () => {
 	const navigation = useNavigation();
 
 	function handleNavigationToPoints() {
-		navigation.navigate('Points', { uf: selectedUf, city: selectedCity });
+		if (selectedUf !== '0' && selectedCity !== '0') {
+			navigation.navigate('Points', { uf: selectedUf, city: selectedCity });
+		} else {
+			Alert.alert('Por favor, selecione a cidade e o estado onde deseja fazer a busca!');
+		}
 	}
 
 	useEffect(() => {
