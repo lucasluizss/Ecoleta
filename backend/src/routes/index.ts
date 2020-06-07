@@ -4,7 +4,7 @@ import pointsRoutes from './points.routes';
 
 const routes = express.Router();
 
-routes.use('items', itemsRoutes);
-routes.use('points', pointsRoutes);
+routes.use('/items', itemsRoutes);
+routes.use('/points', pointsRoutes);
 
 export default routes;
