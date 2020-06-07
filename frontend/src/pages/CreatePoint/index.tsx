@@ -57,7 +57,7 @@ const CreatePoint = () => {
 		}
 
 		try {
-			await api.post('points', data).then(console.log).catch(console.warn);
+			await api.post('points', data);
 
 			setNotificationData({
 				...notificationData,
@@ -65,7 +65,6 @@ const CreatePoint = () => {
 				'show': true
 			});
 		} catch (ex) {
-			console.log(ex);
 			setNotificationData({
 				...notificationData,
 				'message': 'Falha ao enviar dados!',

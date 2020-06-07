@@ -14,7 +14,6 @@ interface Item {
 
 class ItemsController {
 	async index(_: Request, response: Response) {
-		console.log('buscando todos os items')
 		const items = await knex(items_tb).select('*');
 
 		const serializedItems = items.map(ItemFactory.create);

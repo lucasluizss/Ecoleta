@@ -14,8 +14,6 @@ class PointsController {
 		const { city, uf, items } = request.query;
 
 		try {
-			console.log(points_tb)
-
 			const parsedItems = String(items)
 				.trim()
 				.split(',')
@@ -56,14 +54,11 @@ class PointsController {
 
 			return response.json(Result.Success({ point: serializedPoint, items }));
 		} catch (ex) {
-			console.log(ex);
 			return response.json(Result.Fail(ex));
 		}
 	}
 
 	async create(request: Request, response: Response) {
-		console.log('REQUISICAO: ',request.body)
-
 		const {
 			name,
 			email,
