@@ -59,7 +59,7 @@ const CreatePoint = () => {
 		try {
 			await api.post('points', data);
 
-			setNotificationData({
+			setNotificationData({ 
 				...notificationData,
 				'message': 'Cadastro concluído!',
 				'show': true
