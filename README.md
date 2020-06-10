@@ -3,7 +3,9 @@
 </h1>
 
 <h4 align="center">
-	:construction: #NextLevelWeek 1.0 🚀 In progress.. :construction:
+	:construction:
+    #NextLevelWeek 1.0 🚀
+  :construction:
 </h4>
 <p align="center">
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/lucasluizss/Ecoleta?color=%2304D361">
@@ -93,6 +95,19 @@ After merging your receipt request to done, you can delete a branch from yours.
 ## :memo: License
 
 This project is under the MIT license. See the [LICENSE](LICENSE.md) for details.
+
+
+## :mailbox_with_mail: Get in touch!
+
+<a href="https://lucasluizss.github.io" target="_blank" >
+  <img alt="Website - Lucas Silva" src="https://img.shields.io/badge/Website--%23F8952D?style=social">
+</a>&nbsp;&nbsp;&nbsp;
+<a href="https://www.linkedin.com/in/lucasluizss/" target="_blank" >
+  <img alt="Linkedin - Lucas Silva" src="https://img.shields.io/badge/Linkedin--%23F8952D?style=social&logo=linkedin">
+</a>&nbsp;&nbsp;&nbsp;
+<a href="mailto:lucasluizss@live.com" target="_blank" >
+  <img alt="Email - Lucas Silva" src="https://img.shields.io/badge/Email--%23F8952D?style=social&logo=gmail">
+</a>
 
 
 Made with ♥ by Lucas Silva :wave: [Get in touch!](https://www.linkedin.com/in/lucasluizss/)
